@@ -1,5 +1,7 @@
 # rpios-metrics
 
+[![Build Status](https://travis-ci.com/agarthetiger/rpios-metrics.svg?branch=trunk)](https://travis-ci.com/agarthetiger/rpios-metrics)
+
 Ansible Role to install a python daemon process which will provide an http endpoint for exposing system metrics.
 
 This role exists because I'm building a Raspberry Pi cluster with custom case which will have a single PWM fan. One Pi in the cluster needs to get the cpu temperature for all the cluster hosts in order to control the fan speed appropriately. I've decided that an unsecured endpoint which exposes the onboard temp as measured by vcgen is adequate for my purposes.
