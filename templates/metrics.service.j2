@@ -1,0 +1,19 @@
+[Unit]
+Description=Gunicorn process to serve system metrics on port {{ daemon_port }}
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10s
+KillMode=process
+TimeoutSec=infinity
+User={{ daemon_user }}
+Group={{ daemon_group }}
+WorkingDirectory={{ daemon_install_path }}
+ExecStart=/usr/bin/gunicorn3 --workers 1 --bind=0.0.0.0:{{ daemon_port }} metrics:app
+StandardOutput=inherit
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

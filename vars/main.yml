@@ -1,0 +1,6 @@
+---
+daemon_install_path: /opt/metrics_daemon
+daemon_user: pi
+daemon_group: pi
+daemon_port: '5000'
+daemon_service_path: /etc/systemd/system

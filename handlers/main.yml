@@ -1,0 +1,12 @@
+---
+- name: restart metrics service
+  systemd:
+    state: restarted
+    name: metrics
+    enabled: yes
+  become: yes
+
+- name: reload systemd configs
+  systemd:
+    daemon_reload: yes
+  become: yes

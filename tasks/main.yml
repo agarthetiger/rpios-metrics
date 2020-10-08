@@ -1,0 +1,44 @@
+---
+- name: Ensure required packages are present
+  apt:
+    name: gunicorn3, python3-flask
+    state: present
+  become: yes
+
+# Ensure gunicorn user exists
+
+# Ensure gunicorn group exists
+
+
+- name: Ensure metrics_daemon install folder is present
+  file:
+    path: "{{ daemon_install_path }}"
+    state: directory
+    owner: "{{ daemon_user }}"
+    group: "{{ daemon_group }}"
+    mode: '0750'
+  become: yes
+
+- name: Ensure the metrics daemon python script is present
+  copy:
+    src: metrics.py
+    dest: "{{ daemon_install_path }}/metrics.py"
+    owner: "{{ daemon_user }}"
+    group: "{{ daemon_group }}"
+    mode: '0775'
+  become: yes
+  notify:
+    - restart metrics service
+
+- name: Ensure the metrics daemon service exists
+  template:
+    src: metrics.service.j2
+    dest: "{{ daemon_service_path }}/metrics.service"
+    owner: root
+    group: root
+    mode: '0775'
+  become: yes
+  notify:
+    - reload systemd configs
+
+# TODO If a firewall is running, ensure the daemon port is open
